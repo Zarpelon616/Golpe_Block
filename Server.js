@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 // Importa o framework Express
 const express = require('express');
 
