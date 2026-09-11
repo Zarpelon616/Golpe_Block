@@ -61,14 +61,26 @@ GolpeBlock/
 ├── config/
 ├── controllers/
 ├── database/
+│   ├── db.js
+│   └── setup.js
+│
 ├── models/
-├── public/
 ├── routes/
 │
+├── public/
+│   ├── index.html
+│   ├── login.html
+│   ├── cadastro.html
+│   ├── perfil.html
+│   ├── css/
+│   └── js/
+│
+├── .env.example
+├── .gitignore
 ├── Server.js
 ├── package.json
 ├── package-lock.json
-└── .gitignore
+└── README.md
 ```
 
 ---
@@ -86,6 +98,30 @@ Atualmente o projeto possui:
 * Listagem de publicações
 * Criação de publicações
 * Consulta de publicação por ID
+* Estrutura inicial do frontend
+* Configuração de variáveis de ambiente
+
+### Rotas Implementadas
+
+#### Publicações
+
+```http
+GET /publicacoes
+```
+
+Lista todas as publicações cadastradas.
+
+```http
+GET /publicacoes/:id
+```
+
+Busca uma publicação específica pelo ID.
+
+```http
+POST /publicacoes
+```
+
+Cria uma nova publicação.
 
 ---
 
@@ -120,6 +156,19 @@ Tabelas atualmente implementadas:
 
 ---
 
+## Variáveis de Ambiente
+
+Criar um arquivo `.env` na raiz do projeto seguindo o modelo do arquivo `.env.example`.
+
+Exemplo:
+
+```env
+PORT=3000
+DATABASE_URL=./database/golpeblock.db
+```
+
+---
+
 ## Como Executar o Projeto
 
 ### 1. Clonar o repositório
@@ -128,25 +177,35 @@ Tabelas atualmente implementadas:
 git clone https://github.com/Zarpelon616/Golpe_Block.git
 ```
 
-### 2. Instalar dependências
+### 2. Entrar na pasta do projeto
+
+```bash
+cd Golpe_Block
+```
+
+### 3. Instalar dependências
 
 ```bash
 npm install
 ```
 
-### 3. Criar o banco de dados
+### 4. Configurar o arquivo .env
+
+Criar o arquivo `.env` utilizando como base o `.env.example`.
+
+### 5. Criar o banco de dados
 
 ```bash
 node database/setup.js
 ```
 
-### 4. Executar o servidor
+### 6. Executar o servidor
 
 ```bash
 npm run dev
 ```
 
-### 5. Acessar a aplicação
+### 7. Acessar a aplicação
 
 ```text
 http://localhost:3000
@@ -164,9 +223,12 @@ http://localhost:3000
 * Pesquisa de publicações
 * Perfil do usuário
 
+As tarefas futuras também estão registradas na aba **Issues** do repositório GitHub.
+
 ---
 
 ## Status do Projeto
 
 Em desenvolvimento.
-Versão atual: 0.1 – Fundação do Projeto.
+
+**Versão atual:** 0.3 – Fundação do Projeto.
