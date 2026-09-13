@@ -104,7 +104,6 @@ GolpeBlock/
 └── Server.js
 └── README.md
 ```
-
 ---
 
 ## Funcionalidades Implementadas
@@ -120,30 +119,6 @@ Atualmente o projeto possui:
 * Listagem de publicações
 * Criação de publicações
 * Consulta de publicação por ID
-* Estrutura inicial do frontend
-* Configuração de variáveis de ambiente
-
-### Rotas Implementadas
-
-#### Publicações
-
-```http
-GET /publicacoes
-```
-
-Lista todas as publicações cadastradas.
-
-```http
-GET /publicacoes/:id
-```
-
-Busca uma publicação específica pelo ID.
-
-```http
-POST /publicacoes
-```
-
-Cria uma nova publicação.
 
 ---
 
@@ -199,35 +174,25 @@ DATABASE_URL=./database/golpeblock.db
 git clone https://github.com/Zarpelon616/Golpe_Block.git
 ```
 
-### 2. Entrar na pasta do projeto
-
-```bash
-cd Golpe_Block
-```
-
-### 3. Instalar dependências
+### 2. Instalar dependências
 
 ```bash
 npm install
 ```
 
-### 4. Configurar o arquivo .env
-
-Criar o arquivo `.env` utilizando como base o `.env.example`.
-
-### 5. Criar o banco de dados
+### 3. Criar o banco de dados
 
 ```bash
 node database/setup.js
 ```
 
-### 6. Executar o servidor
+### 4. Executar o servidor
 
 ```bash
 npm run dev
 ```
 
-### 7. Acessar a aplicação
+### 5. Acessar a aplicação
 
 ```text
 http://localhost:3000
@@ -245,12 +210,11 @@ http://localhost:3000
 * Pesquisa de publicações
 * Perfil do usuário
 
-As tarefas futuras também estão registradas na aba **Issues** do repositório GitHub.
-
 ---
 
 ## Status do Projeto
 
 Em desenvolvimento.
+Versão atual: 0.1 – Fundação do Projeto.
 
-** Versão atual: 0.4 – Estrutura MVC, banco de dados e API inicial concluídos.
+** Versão atual: 0.4 – Estrutura MVC, banco de dados e API inicial concluídos.  
