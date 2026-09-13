@@ -33,6 +33,15 @@ Criar um ambiente simples onde pessoas possam compartilhar informações sobre g
 
 * SQLite
 
+### Dependências
+
+- Express → Framework responsável pelo servidor web e gerenciamento de rotas.
+- SQLite3 → Banco de dados utilizado pelo projeto.
+- Dotenv → Carregamento de variáveis de ambiente através do arquivo .env.
+
+### Dependências de Desenvolvimento
+
+- Nodemon → Reinicia automaticamente o servidor durante o desenvolvimento.
 ---
 
 ## Arquitetura
@@ -59,13 +68,25 @@ Responsável pela lógica da aplicação, validações e comunicação entre Vie
 GolpeBlock/
 │
 ├── config/
+└── app.js
 ├── controllers/
+└── ComentarioController.js
+└── PublicacaoController.js
+└── UsuarioController.js
+|
 ├── database/
 │   ├── db.js
 │   └── setup.js
 │
 ├── models/
+└── comentario.js
+└── publiacao.js
+└── usuario.js
+|
 ├── routes/
+└── comentarios.js
+└── publiacaos.js
+└── usuarios.js
 │
 ├── public/
 │   ├── index.html
@@ -77,9 +98,10 @@ GolpeBlock/
 │
 ├── .env.example
 ├── .gitignore
-├── Server.js
+├──  CONVENCOES.md
 ├── package.json
 ├── package-lock.json
+└── Server.js
 └── README.md
 ```
 
@@ -231,4 +253,4 @@ As tarefas futuras também estão registradas na aba **Issues** do repositório 
 
 Em desenvolvimento.
 
-**Versão atual:** 0.3 – Fundação do Projeto.
+** Versão atual: 0.4 – Estrutura MVC, banco de dados e API inicial concluídos.
