@@ -1,97 +1,85 @@
 // CONTROLLER DE PUBLICAÇÕES
 
-// Importa o Model responsável pelas operações, de acesso ao banco de dados relacionadas às publicações.
+// Importa o Model responsável pelas operações relacionadas às publicações.
 const Publicacao = require('../models/publicacao');
 
 // CRIAR PUBLICAÇÃO
+// Recebe os dados enviados pelo cliente, valida as informações
+// e solicita ao Model que grave a publicação no banco.
+async function criarPublicacao(req, res) {
 
-// Recebe os dados enviados pelo cliente, valida as informações e solicita ao Model que grave a publicação no banco.
-function criarPublicacao(req, res) {
+    try {
 
-    // Dados enviados no corpo da requisição
-    const { titulo, conteudo, autorId } = req.body;
+        // Dados enviados no corpo da requisição
+        const { titulo, conteudo, autorId } = req.body;
 
-    // Validação dos campos obrigatórios
-    if (!titulo || !conteudo || !autorId) {
+        // Validação dos campos obrigatórios
+        if (!titulo || !conteudo || !autorId) {
 
-        return res.status(400).json({
-            erro: 'Título, conteúdo e autorId são obrigatórios.'
+            return res.status(400).json({
+                erro: 'Título, conteúdo e autorId são obrigatórios.'
+            });
+
+        }
+
+        // Cria a publicação utilizando o Prisma
+        const publicacao = await Publicacao.criar(
+            titulo,
+            conteudo,
+            autorId
+        );
+
+        // Retorna sucesso e o ID gerado
+        res.status(201).json({
+            mensagem: 'Publicação criada com sucesso.',
+            id: publicacao.id
+        });
+
+    } catch (err) {
+
+        res.status(500).json({
+            erro: err.message
         });
 
     }
 
-    // Solicita ao Model a criação da publicação
-    Publicacao.criar(
-        titulo,
-        conteudo,
-        autorId,
-
-        function(err) {
-
-            // Tratamento de erro durante a inserção
-            if (err) {
-
-                return res.status(500).json({
-                    erro: err.message
-                });
-
-            }
-
-            // Retorna sucesso e o ID gerado
-            res.status(201).json({
-                mensagem: 'Publicação criada com sucesso.',
-                id: this.lastID
-            });
-
-        }
-    );
-
 }
 
 // LISTAR TODAS AS PUBLICAÇÕES
-
 // Busca todas as publicações cadastradas no banco de dados.
-function listarPublicacoes(req, res) {
+async function listarPublicacoes(req, res) {
 
-    Publicacao.listarTodas((err, rows) => {
+    try {
 
-        // Erro durante a consulta
-        if (err) {
+        const publicacoes =
+            await Publicacao.listarTodas();
 
-            return res.status(500).json({
-                erro: err.message
-            });
+        res.json(publicacoes);
 
-        }
+    } catch (err) {
 
-        // Retorna os registros encontrados
-        res.json(rows);
+        res.status(500).json({
+            erro: err.message
+        });
 
-    });
+    }
 
 }
 
 // BUSCAR PUBLICAÇÃO POR ID
-
 // Busca uma publicação específica utilizando o ID informado na URL.
-function buscarPublicacaoPorId(req, res) {
+async function buscarPublicacaoPorId(req, res) {
 
-    // Obtém o parâmetro da rota
-    const { id } = req.params;
+    try {
 
-    Publicacao.buscarPorId(id, (err, row) => {
+        // Obtém o parâmetro da rota
+        const { id } = req.params;
 
-        // Erro na consulta
-        if (err) {
-
-            return res.status(500).json({
-                erro: err.message
-            });
-
-        }
+        const publicacao =
+            await Publicacao.buscarPorId(id);
 
         // Caso não exista publicação com esse ID
-        if (!row) {
+        if (!publicacao) {
 
             return res.status(404).json({
                 erro: 'Publicação não encontrada.'
@@ -100,15 +88,20 @@ function buscarPublicacaoPorId(req, res) {
         }
 
         // Retorna a publicação encontrada
-        res.json(row);
+        res.json(publicacao);
 
-    });
+    } catch (err) {
+
+        res.status(500).json({
+            erro: err.message
+        });
+
+    }
 
 }
 
 // EXPORTAÇÃO DAS FUNÇÕES
 
-// Disponibiliza as funções para utilização nas rotas da aplicação.
 module.exports = {
     listarPublicacoes,
     criarPublicacao,
@@ -116,19 +109,20 @@ module.exports = {
 };
 
 /*
-O Controller recebe as requisições do cliente, valida os dados, chama o Model quando precisa acessar o banco e devolve uma resposta para o usuário.
+Controller responsável por receber requisições HTTP,
+validar os dados recebidos e retornar respostas ao cliente.
 
-req.body é o corpo da requisição HTTP. Contém os dados enviados pelo cliente em formato JSON.
+Nesta versão o acesso ao banco é realizado através
+do Prisma ORM.
 
-req.params são os parâmetros da URL.
+Como o Prisma trabalha com Promises,
+as funções utilizam async/await.
 
-res.status(400) retorna um código HTTP indicando erro do cliente, normalmente porque faltam dados obrigatórios.
+try/catch:
+- try executa o código principal.
+- catch captura erros e impede que o servidor seja encerrado.
 
-res.status(404) indica que o recurso solicitado não foi encontrado.
-
-res.status(500) indica erro interno do servidor ou do banco de dados.
-
-res.status(201) indica que um novo recurso foi criado com sucesso.
-
-this.lastID O SQLite retorna automaticamente o ID gerado no último INSERT. Esse valor pode ser acessado através de this.lastID
+await:
+- Aguarda a conclusão de operações assíncronas.
+- Facilita a leitura em comparação ao uso de callbacks.
 */
