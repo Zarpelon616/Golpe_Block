@@ -2,3 +2,4 @@ node_modules/
 database/golpeblock.db
 .env
 .env.local
+/generated/prisma
