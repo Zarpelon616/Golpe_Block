@@ -4,16 +4,31 @@ const express = require('express');
 // Cria um Router para organizar as rotas relacionadas aos usuários
 const router = express.Router();
 
-// ROTA DE TESTE
+// Importa o Controller responsável pelos usuários
+const UsuarioController =
+    require('../controllers/UsuarioController');
 
-// Utilizada para verificar se o módulo de usuários está conectado corretamente ao servidor.
-router.get('/', (req, res) => {
+// LISTAR USUÁRIOS
+// GET /usuarios
+router.get(
+    '/',
+    UsuarioController.listarUsuarios
+);
 
-    res.json({
-        mensagem: 'Rotas de usuários'
-    });
+// BUSCAR USUÁRIO POR ID
+// GET /usuarios/:id
+router.get(
+    '/:id',
+    UsuarioController.buscarUsuarioPorId
+);
 
-});
+// CRIAR USUÁRIO
+// POST /usuarios
+router.post(
+    '/',
+    UsuarioController.criarUsuario
+);
 
-// Exporta o Router para utilização no arquivo principal do servidor
+// Exporta o Router para utilização no servidor
 module.exports = router;
+

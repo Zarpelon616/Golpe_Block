@@ -1,14 +1,24 @@
-// testePrisma.js
-
-const prisma = require('./database/prisma');
+const prisma = require('./prisma');
 
 async function testar() {
-    const publicacoes = await prisma.publicacao.findMany();
-    console.log(publicacoes);
+
+    try {
+
+        const usuarios =
+            await prisma.usuario.findMany();
+
+        console.log('Usuários:', usuarios);
+
+    } catch (erro) {
+
+        console.error('Erro:', erro);
+
+    } finally {
+
+        await prisma.$disconnect();
+
+    }
+
 }
 
-testar()
-    .catch(console.error)
-    .finally(async () => {
-        await prisma.$disconnect();
-    });
+testar();

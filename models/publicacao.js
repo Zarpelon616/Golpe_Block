@@ -1,8 +1,8 @@
-// Importa o cliente Prisma responsável pelo acesso ao banco
+// Importa a instância do Prisma responsável pela comunicação com o banco
 const prisma = require('../database/prisma');
 
 // LISTAR TODAS AS PUBLICAÇÕES
-// Retorna todas as publicações ordenadas da mais recente para a mais antiga.
+// Retorna todas as publicações cadastradas ordenadas da mais recente para a mais antiga.
 async function listarTodas() {
 
     return await prisma.publicacao.findMany({
@@ -28,7 +28,7 @@ async function criar(titulo, conteudo, autorId) {
 }
 
 // BUSCAR PUBLICAÇÃO POR ID
-// Retorna uma publicação específica através do ID.
+// Retorna uma publicação específica através do ID informado.
 async function buscarPorId(id) {
 
     return await prisma.publicacao.findUnique({
@@ -49,13 +49,12 @@ module.exports = {
 /*
 Model responsável pelas operações da entidade Publicação.
 
-Diferente da versão anterior, este Model utiliza o Prisma ORM
-para acessar o banco de dados.
+No padrão MVC, o Model é responsável pelo acesso aos dados da aplicação.
 
-O Prisma permite trabalhar com objetos JavaScript em vez de
-escrever comandos SQL manualmente.
+Diferentemente da implementação anterior, que utilizava comandos SQL manuais,
+esta versão utiliza o Prisma ORM para realizar consultas e alterações no banco.
 
-Funções utilizadas:
+Principais métodos utilizados:
 
 findMany()
 - Retorna vários registros.
@@ -66,6 +65,6 @@ findUnique()
 create()
 - Cria um novo registro.
 
-As funções são assíncronas e retornam Promises,
-por isso utilizam async/await.
+As funções são assíncronas e retornam Promises, por isso utilizam async/await.
 */
+

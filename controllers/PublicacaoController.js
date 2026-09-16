@@ -74,7 +74,8 @@ async function buscarPublicacaoPorId(req, res) {
 
         // Obtém o parâmetro da rota
         const { id } = req.params;
-
+        
+        // Solicita ao Model a busca da publicação pelo ID informado
         const publicacao =
             await Publicacao.buscarPorId(id);
 
