@@ -4,7 +4,7 @@
 
 O Golpe Block é uma plataforma web colaborativa voltada ao compartilhamento de informações sobre golpes e fraudes digitais.
 
-A proposta é permitir que usuários publiquem relatos, alertas e experiências relacionadas a golpes, enquanto outros usuários podem complementar as informações por meio de comentários.
+A proposta é permitir que usuários publiquem relatos, alertas e experiências relacionadas a golpes, enquanto outros usuários possam consultar essas informações e contribuir para a conscientização e prevenção de fraudes.
 
 O projeto está sendo desenvolvido como um MVP (Minimum Viable Product), priorizando simplicidade, anonimato dos usuários e validação das funcionalidades principais.
 
@@ -12,7 +12,7 @@ O projeto está sendo desenvolvido como um MVP (Minimum Viable Product), prioriz
 
 ## Objetivo
 
-Criar um ambiente simples onde pessoas possam compartilhar informações sobre golpes e consultar experiências de outros usuários, contribuindo para a conscientização e prevenção de fraudes.
+Criar um ambiente simples onde pessoas possam compartilhar informações sobre golpes e consultar experiências de outros usuários, contribuindo para a conscientização e prevenção de fraudes digitais.
 
 ---
 
@@ -32,16 +32,21 @@ Criar um ambiente simples onde pessoas possam compartilhar informações sobre g
 ### Banco de Dados
 
 * SQLite
+* Prisma ORM
 
 ### Dependências
 
-- Express → Framework responsável pelo servidor web e gerenciamento de rotas.
-- SQLite3 → Banco de dados utilizado pelo projeto.
-- Dotenv → Carregamento de variáveis de ambiente através do arquivo .env.
+* Express → Framework responsável pelo servidor web e gerenciamento de rotas.
+* Prisma ORM → Camada de acesso ao banco de dados.
+* @prisma/client → Cliente utilizado pela aplicação para comunicação com o banco.
+* SQLite3 → Banco de dados utilizado pelo projeto.
+* Dotenv → Carregamento de variáveis de ambiente através do arquivo `.env`.
 
 ### Dependências de Desenvolvimento
 
-- Nodemon → Reinicia automaticamente o servidor durante o desenvolvimento.
+* Nodemon → Reinicia automaticamente o servidor durante o desenvolvimento.
+* Prisma CLI → Gerenciamento de migrations e geração do cliente Prisma.
+
 ---
 
 ## Arquitetura
@@ -66,44 +71,50 @@ Responsável pela lógica da aplicação, validações e comunicação entre Vie
 
 ```text
 GolpeBlock/
+
+├── .agents/
+├── .claude/
+├── .windsurf/
 │
 ├── config/
-└── app.js
+│
 ├── controllers/
-└── ComentarioController.js
-└── PublicacaoController.js
-└── UsuarioController.js
-|
+│   ├── ComentarioController.js
+│   ├── PublicacaoController.js
+│   └── UsuarioController.js
+│
 ├── database/
-│   ├── db.js
-│   └── setup.js
+│   ├── golpeblock.db
+│   ├── prisma.js
+│   └── testePrisma.js
 │
 ├── models/
-└── comentario.js
-└── publiacao.js
-└── usuario.js
-|
-├── routes/
-└── comentarios.js
-└── publiacaos.js
-└── usuarios.js
+│   ├── comentario.js
+│   ├── publicacao.js
+│   └── usuario.js
+│
+├── prisma/
+│   ├── schema.prisma
+│   └── migrations/
 │
 ├── public/
-│   ├── index.html
-│   ├── login.html
-│   ├── cadastro.html
-│   ├── perfil.html
-│   ├── css/
-│   └── js/
 │
+├── routes/
+│   ├── comentarios.js
+│   ├── publicacoes.js
+│   └── usuarios.js
+│
+├── .env
 ├── .env.example
 ├── .gitignore
-├──  CONVENCOES.md
+├── CONVENCOES.md
 ├── package.json
 ├── package-lock.json
-└── Server.js
-└── README.md
+├── README.md
+├── Server.js
+└── skills-lock.json
 ```
+
 ---
 
 ## Funcionalidades Implementadas
@@ -112,30 +123,41 @@ Atualmente o projeto possui:
 
 * Estrutura inicial do servidor Node.js
 * Integração com Express
+* Arquitetura MVC
 * Banco de dados SQLite
-* Criação automática das tabelas
+* Prisma ORM configurado
+* Sistema de migrations
 * Sistema de rotas
-* Estrutura MVC inicial
-* Listagem de publicações
-* Criação de publicações
+* Cadastro de usuários via API
+* Listagem de usuários via API
+* Criação de publicações via API
+* Listagem de publicações via API
 * Consulta de publicação por ID
 
 ---
 
 ## Banco de Dados
 
-O sistema utiliza SQLite.
+O banco de dados é gerenciado pelo Prisma ORM através do arquivo:
 
-Tabelas atualmente implementadas:
+```text
+prisma/schema.prisma
+```
 
-### usuarios
+As alterações de estrutura são controladas por migrations armazenadas em:
+
+```text
+prisma/migrations/
+```
+
+### Tabela: usuarios
 
 * id
 * email
 * senhaHash
 * dataCadastro
 
-### publicacoes
+### Tabela: publicacoes
 
 * id
 * titulo
@@ -143,7 +165,7 @@ Tabelas atualmente implementadas:
 * dataCriacao
 * autorId
 
-### comentarios
+### Tabela: comentarios
 
 * id
 * conteudo
@@ -161,7 +183,7 @@ Exemplo:
 
 ```env
 PORT=3000
-DATABASE_URL=./database/golpeblock.db
+DATABASE_URL="file:../database/golpeblock.db"
 ```
 
 ---
@@ -174,25 +196,31 @@ DATABASE_URL=./database/golpeblock.db
 git clone https://github.com/Zarpelon616/Golpe_Block.git
 ```
 
-### 2. Instalar dependências
+### 2. Instalar as dependências
 
 ```bash
 npm install
 ```
 
-### 3. Criar o banco de dados
+### 3. Aplicar as migrations do banco
 
 ```bash
-node database/setup.js
+npx prisma migrate dev
 ```
 
-### 4. Executar o servidor
+### 4. Gerar o cliente Prisma
+
+```bash
+npx prisma generate
+```
+
+### 5. Executar o servidor
 
 ```bash
 npm run dev
 ```
 
-### 5. Acessar a aplicação
+### 6. Acessar a aplicação
 
 ```text
 http://localhost:3000
@@ -200,21 +228,99 @@ http://localhost:3000
 
 ---
 
+## Endpoints Atualmente Disponíveis
+
+### Usuários
+
+#### Listar usuários
+
+```http
+GET /usuarios
+```
+
+#### Criar usuário
+
+```http
+POST /usuarios
+```
+
+Exemplo:
+
+```json
+{
+  "email": "teste@teste.com",
+  "senhaHash": "123456"
+}
+```
+
+---
+
+### Publicações
+
+#### Listar publicações
+
+```http
+GET /publicacoes
+```
+
+#### Buscar publicação por ID
+
+```http
+GET /publicacoes/:id
+```
+
+#### Criar publicação
+
+```http
+POST /publicacoes
+```
+
+Exemplo:
+
+```json
+{
+  "titulo": "Título de teste",
+  "conteudo": "Conteúdo da publicação",
+  "autorId": 1
+}
+```
+
+---
+
 ## Próximas Funcionalidades
 
+* Sistema completo de comentários
 * Exclusão de publicações
-* Sistema de comentários
-* Cadastro de usuários
+* Edição de publicações
 * Login e autenticação
-* Interface web completa
+* Controle de sessão
+* Perfil de usuário
 * Pesquisa de publicações
-* Perfil do usuário
+* Interface web completa
 
 ---
 
 ## Status do Projeto
 
 Em desenvolvimento.
-Versão atual: 0.1 – Fundação do Projeto.
 
-** Versão atual: 0.4 – Estrutura MVC, banco de dados e API inicial concluídos.  
+### Versão Atual
+
+**0.5 – Migração para Prisma ORM concluída**
+
+Concluído:
+
+* Estrutura MVC
+* SQLite integrado
+* Prisma ORM configurado
+* Sistema de migrations
+* Usuários implementados
+* Publicações implementadas
+
+Em desenvolvimento:
+
+* Comentários
+* Autenticação
+* Interface completa
+* Funcionalidades avançadas de pesquisa
+
