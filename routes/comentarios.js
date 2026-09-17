@@ -4,22 +4,35 @@ const express = require('express');
 // Cria um objeto Router para organizar as rotas relacionadas aos comentários
 const router = express.Router();
 
-// ROTA DE TESTE
-// Utilizada apenas para verificar se o módulo de comentários está conectado corretamente ao servidor.
-router.get('/', (req, res) => {
+// Importa o Controller de comentários
+const ComentarioController =
+    require('../controllers/ComentarioController');
 
-    res.json({
-        mensagem: 'Rotas de comentários'
-    });
+// LISTAR COMENTÁRIOS DE UMA PUBLICAÇÃO
+// Exemplo:
+// GET /comentarios/publicacao/1
+router.get(
+    '/publicacao/:publicacaoId',
+    ComentarioController.listarComentariosPorPublicacao
+);
 
-});
+// CRIAR COMENTÁRIO
+// Exemplo:
+// POST /comentarios
+router.post(
+    '/',
+    ComentarioController.criarComentario
+);
 
 // Exporta o Router para utilização no arquivo principal do servidor
 module.exports = router;
 
 /*
-O Router do Express permite separar as rotas em arquivos diferentes. 
-Em vez de colocar todas as rotas dentro do Server.js, cada módulo da aplicação possui suas próprias rotas.
+Rotas responsáveis pelas operações da entidade Comentário.
 
-arquivo criado como esqueleto para receber futuramente as rotas de criação, listagem e exclusão de comentários.
+GET /comentarios/publicacao/:publicacaoId
+- Lista os comentários de uma publicação.
+
+POST /comentarios
+- Cria um novo comentário.
 */
