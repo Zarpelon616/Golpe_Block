@@ -42,7 +42,7 @@ model Comentario {
   autor         Usuario      @relation(fields: [autorId], references: [id])
 
   publicacaoId  Int
-  publicacao    Publicacao   @relation(fields: [publicacaoId], references: [id])
+  publicacao    Publicacao @relation(fields: [publicacaoId], references: [id], onDelete: Cascade)
 
   @@map("comentarios")
 }

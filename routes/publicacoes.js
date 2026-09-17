@@ -34,6 +34,20 @@ router.get(
     PublicacaoController.buscarPublicacaoPorId
 );
 
+// EXCLUIR PUBLICAÇÃO
+
+// DELETE /publicacoes/:id
+
+// Remove uma publicação a partir do ID informado.
+
+router.delete(
+
+    '/:id',
+
+    PublicacaoController.excluirPublicacao
+
+);
+
 // Exporta o Router para utilização
 // no arquivo principal do servidor
 module.exports = router;

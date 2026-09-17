@@ -39,11 +39,24 @@ async function buscarPorId(id) {
 
 }
 
+// EXCLUIR PUBLICAÇÃO
+// Remove uma publicação a partir do ID informado.
+async function excluir(id) {
+
+    return await prisma.publicacao.delete({
+        where: {
+            id: Number(id)
+        }
+    });
+
+}
+
 // Exporta as funções para utilização pelos Controllers
 module.exports = {
     listarTodas,
     criar,
-    buscarPorId
+    buscarPorId,
+    excluir
 };
 
 /*

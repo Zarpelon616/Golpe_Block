@@ -101,12 +101,50 @@ async function buscarPublicacaoPorId(req, res) {
 
 }
 
+// EXCLUIR PUBLICAÇÃO
+// Remove uma publicação a partir do ID informado.
+async function excluirPublicacao(req, res) {
+
+    try {
+
+        const { id } = req.params;
+
+        // Verifica se a publicação existe
+        const publicacao =
+            await Publicacao.buscarPorId(id);
+
+        if (!publicacao) {
+
+            return res.status(404).json({
+                erro: 'Publicação não encontrada.'
+            });
+
+        }
+
+        // Exclui a publicação
+        await Publicacao.excluir(id);
+
+        res.json({
+            mensagem: 'Publicação excluída com sucesso.'
+        });
+
+    } catch (err) {
+
+        res.status(500).json({
+            erro: err.message
+        });
+
+    }
+
+}
+
 // EXPORTAÇÃO DAS FUNÇÕES
 
 module.exports = {
     listarPublicacoes,
     criarPublicacao,
-    buscarPublicacaoPorId
+    buscarPublicacaoPorId,
+    excluirPublicacao
 };
 
 /*
