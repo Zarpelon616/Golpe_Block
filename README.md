@@ -128,11 +128,28 @@ Atualmente o projeto possui:
 * Prisma ORM configurado
 * Sistema de migrations
 * Sistema de rotas
+
+### Usuários
+
 * Cadastro de usuários via API
 * Listagem de usuários via API
+
+### Publicações
+
 * Criação de publicações via API
 * Listagem de publicações via API
 * Consulta de publicação por ID
+* Exclusão de publicações via API
+
+### Comentários
+
+* Criação de comentários via API
+* Listagem de comentários por publicação via API
+
+### Relacionamentos
+
+* Relacionamento entre usuários, publicações e comentários
+* Exclusão em cascata (Cascade Delete) de comentários ao excluir uma publicação
 
 ---
 
@@ -172,6 +189,13 @@ prisma/migrations/
 * dataCriacao
 * autorId
 * publicacaoId
+
+### Relacionamentos
+
+* Um usuário pode criar várias publicações.
+* Um usuário pode criar vários comentários.
+* Uma publicação pode possuir vários comentários.
+* Ao excluir uma publicação, seus comentários são removidos automaticamente (Cascade Delete).
 
 ---
 
@@ -285,17 +309,48 @@ Exemplo:
 }
 ```
 
+#### Excluir publicação
+
+```http
+DELETE /publicacoes/:id
+```
+
+---
+
+### Comentários
+
+#### Criar comentário
+
+```http
+POST /comentarios
+```
+
+Exemplo:
+
+```json
+{
+  "conteudo": "Comentário de teste",
+  "autorId": 1,
+  "publicacaoId": 1
+}
+```
+
+#### Listar comentários de uma publicação
+
+```http
+GET /comentarios/publicacao/:publicacaoId
+```
+
 ---
 
 ## Próximas Funcionalidades
 
-* Sistema completo de comentários
-* Exclusão de publicações
+* Exclusão de comentários
+* Pesquisa de publicações
 * Edição de publicações
 * Login e autenticação
 * Controle de sessão
 * Perfil de usuário
-* Pesquisa de publicações
 * Interface web completa
 
 ---
@@ -306,21 +361,41 @@ Em desenvolvimento.
 
 ### Versão Atual
 
-**0.5 – Migração para Prisma ORM concluída**
+**0.6 – Comentários e exclusão de publicações implementados**
 
-Concluído:
+### Concluído
 
 * Estrutura MVC
 * SQLite integrado
 * Prisma ORM configurado
 * Sistema de migrations
-* Usuários implementados
-* Publicações implementadas
 
-Em desenvolvimento:
+#### Usuários
 
-* Comentários
+* Cadastro
+* Listagem
+
+#### Publicações
+
+* Criação
+* Listagem
+* Busca por ID
+* Exclusão
+
+#### Comentários
+
+* Criação
+* Listagem por publicação
+
+#### Banco de Dados
+
+* Relacionamentos implementados
+* Cascade Delete configurado
+
+### Em desenvolvimento
+
+* Exclusão de comentários
+* Pesquisa de publicações
 * Autenticação
-* Interface completa
-* Funcionalidades avançadas de pesquisa
-
+* Controle de sessão
+* Interface web
