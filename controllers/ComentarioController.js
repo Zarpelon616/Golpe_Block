@@ -72,11 +72,36 @@ async function listarComentariosPorPublicacao(req, res) {
 
 }
 
+// EXCLUIR COMENTÁRIO
+// Remove um comentário a partir do ID informado.
+async function excluirComentario(req, res) {
+
+    try {
+
+        const { id } = req.params;
+
+        await Comentario.excluir(id);
+
+        res.json({
+            mensagem: 'Comentário excluído com sucesso.'
+        });
+
+    } catch (err) {
+
+        res.status(500).json({
+            erro: err.message
+        });
+
+    }
+
+}
+
 // EXPORTAÇÃO DAS FUNÇÕES
 
 module.exports = {
     criarComentario,
-    listarComentariosPorPublicacao
+    listarComentariosPorPublicacao,
+    excluirComentario
 };
 
 /*

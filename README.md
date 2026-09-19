@@ -145,6 +145,7 @@ Atualmente o projeto possui:
 
 * Criação de comentários via API
 * Listagem de comentários por publicação via API
+* Exclusão de comentários via API
 
 ### Relacionamentos
 
@@ -341,11 +342,16 @@ Exemplo:
 GET /comentarios/publicacao/:publicacaoId
 ```
 
+#### Excluir comentário
+
+```http
+DELETE /comentarios/:id
+```
+
 ---
 
 ## Próximas Funcionalidades
 
-* Exclusão de comentários
 * Pesquisa de publicações
 * Edição de publicações
 * Login e autenticação
@@ -361,7 +367,7 @@ Em desenvolvimento.
 
 ### Versão Atual
 
-**0.6 – Comentários e exclusão de publicações implementados**
+**0.7 – CRUD básico de comentários concluído**
 
 ### Concluído
 
@@ -386,6 +392,7 @@ Em desenvolvimento.
 
 * Criação
 * Listagem por publicação
+* Exclusão
 
 #### Banco de Dados
 
@@ -394,8 +401,8 @@ Em desenvolvimento.
 
 ### Em desenvolvimento
 
-* Exclusão de comentários
 * Pesquisa de publicações
-* Autenticação
+* Login e Autenticação
 * Controle de sessão
+* Perfil de usuário
 * Interface web

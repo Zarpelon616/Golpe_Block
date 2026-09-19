@@ -28,9 +28,21 @@ async function criar(conteudo, autorId, publicacaoId) {
 
 }
 
+// EXCLUIR COMENTÁRIO
+async function excluir(id) {
+
+    return await prisma.comentario.delete({
+        where: {
+            id: Number(id)
+        }
+    });
+
+}
+
 module.exports = {
     listarPorPublicacao,
-    criar
+    criar,
+    excluir
 };
 
 /*
@@ -47,4 +59,15 @@ criar()
 - Cria um novo comentário.
 
 As funções são assíncronas e utilizam async/await.
+
+a função de exclusão recebe um ID:
+
+await Comentario.excluir(5);
+
+e executa:
+
+DELETE FROM comentarios
+WHERE id = 5;
+
+indiretamente através do Prisma.
 */

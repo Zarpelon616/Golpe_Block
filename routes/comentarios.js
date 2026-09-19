@@ -24,6 +24,14 @@ router.post(
     ComentarioController.criarComentario
 );
 
+// EXCLUIR COMENTÁRIO
+// Exemplo:
+// DELETE /comentarios/1
+router.delete(
+    '/:id',
+    ComentarioController.excluirComentario
+);
+
 // Exporta o Router para utilização no arquivo principal do servidor
 module.exports = router;
 
