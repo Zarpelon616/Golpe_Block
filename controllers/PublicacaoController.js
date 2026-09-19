@@ -138,13 +138,44 @@ async function excluirPublicacao(req, res) {
 
 }
 
+// BUSCAR PUBLICAÇÕES POR TÍTULO
+async function buscarPublicacoesPorTitulo(req, res) {
+
+    try {
+
+        const { q } = req.query;
+
+        if (!q) {
+
+            return res.status(400).json({
+                erro: 'Informe um termo para pesquisa.'
+            });
+
+        }
+
+        const publicacoes =
+            await Publicacao.buscarPorTitulo(q);
+
+        res.json(publicacoes);
+
+    } catch (err) {
+
+        res.status(500).json({
+            erro: err.message
+        });
+
+    }
+
+}
+
 // EXPORTAÇÃO DAS FUNÇÕES
 
 module.exports = {
     listarPublicacoes,
     criarPublicacao,
     buscarPublicacaoPorId,
-    excluirPublicacao
+    excluirPublicacao,
+    buscarPublicacoesPorTitulo
 };
 
 /*

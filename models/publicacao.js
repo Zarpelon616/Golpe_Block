@@ -51,12 +51,29 @@ async function excluir(id) {
 
 }
 
+// BUSCAR PUBLICAÇÕES POR TÍTULO
+async function buscarPorTitulo(termo) {
+
+    return await prisma.publicacao.findMany({
+        where: {
+            titulo: {
+                contains: termo
+            }
+        },
+        orderBy: {
+            dataCriacao: 'desc'
+        }
+    });
+
+}
+
 // Exporta as funções para utilização pelos Controllers
 module.exports = {
     listarTodas,
     criar,
     buscarPorId,
-    excluir
+    excluir,
+    buscarPorTitulo
 };
 
 /*

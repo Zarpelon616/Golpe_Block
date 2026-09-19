@@ -139,6 +139,7 @@ Atualmente o projeto possui:
 * Criação de publicações via API
 * Listagem de publicações via API
 * Consulta de publicação por ID
+* Pesquisa de publicações por título via API
 * Exclusão de publicações via API
 
 ### Comentários
@@ -288,6 +289,18 @@ Exemplo:
 GET /publicacoes
 ```
 
+#### Pesquisar publicações por título
+
+```http
+GET /publicacoes/busca?q=termo
+```
+
+Exemplo:
+
+```http
+GET /publicacoes/busca?q=pix
+```
+
 #### Buscar publicação por ID
 
 ```http
@@ -352,8 +365,6 @@ DELETE /comentarios/:id
 
 ## Próximas Funcionalidades
 
-* Pesquisa de publicações
-* Edição de publicações
 * Login e autenticação
 * Controle de sessão
 * Perfil de usuário
@@ -367,7 +378,7 @@ Em desenvolvimento.
 
 ### Versão Atual
 
-**0.7 – CRUD básico de comentários concluído**
+**0.8 – Sistema de pesquisa de publicações implementado**
 
 ### Concluído
 
@@ -386,6 +397,7 @@ Em desenvolvimento.
 * Criação
 * Listagem
 * Busca por ID
+* Pesquisa por título
 * Exclusão
 
 #### Comentários
@@ -401,7 +413,6 @@ Em desenvolvimento.
 
 ### Em desenvolvimento
 
-* Pesquisa de publicações
 * Login e Autenticação
 * Controle de sessão
 * Perfil de usuário

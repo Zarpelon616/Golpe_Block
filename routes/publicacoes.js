@@ -26,6 +26,14 @@ router.get(
     PublicacaoController.listarPublicacoes
 );
 
+// BUSCAR PUBLICAÇÕES POR TÍTULO
+// Exemplo:
+// GET /publicacoes/busca?q=pix
+router.get(
+    '/busca',
+    PublicacaoController.buscarPublicacoesPorTitulo
+);
+
 // BUSCAR PUBLICAÇÃO POR ID
 // GET /publicacoes/:id
 // Retorna uma publicação específica a partir do ID informado na URL.
