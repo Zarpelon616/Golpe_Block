@@ -31,8 +31,21 @@
 
     }
 
+    // BUSCAR USUÁRIO POR E-MAIL
+    async function buscarPorEmail(email) {
+
+        return await prisma.usuario.findUnique({
+            where: {
+                email
+            }
+        });
+
+    }
+
+    // Exporta as funções para utilização pelos Controllers
     module.exports = {
         listarTodos,
         criar,
-        buscarPorId
+        buscarPorId,
+        buscarPorEmail
     };

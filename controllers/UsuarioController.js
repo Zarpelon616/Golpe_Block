@@ -90,11 +90,55 @@ async function buscarUsuarioPorId(req, res) {
 
 }
 
+async function login(req, res) {
+    try {
+        // Passo 1 — Receber os dados
+        const { email, senhaHash } = req.body;
+
+        // Validação dos campos obrigatórios
+        if (!email || !senhaHash) {
+            return res.status(400).json({
+                erro: 'Email e senha obrigatórios.'
+            });
+        }
+
+        // Passo 2 — Procurar o usuário
+        const usuario = await Usuario.buscarPorEmail(email);
+
+        // Passo 3 — Verificar se encontrou
+        if (!usuario) {
+            return res.status(401).json({
+                erro: 'Email ou senha inválidos.'
+            });
+        }
+
+        // Passo 4 — Comparar as senhas
+        if (senhaHash !== usuario.senhaHash) {
+            return res.status(401).json({
+                erro: 'Email ou senha inválidos.'
+            });
+        }
+
+        // Login realizado com sucesso
+        res.status(200).json({
+            mensagem: 'Login realizado com sucesso.',
+            id: usuario.id
+        });
+
+    } catch (err) {
+        res.status(500).json({
+            erro: err.message
+        });
+    }
+}
+
+
 // Exportação das funções
 module.exports = {
     criarUsuario,
     listarUsuarios,
-    buscarUsuarioPorId
+    buscarUsuarioPorId,
+    login
 };
 
 /*

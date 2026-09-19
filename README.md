@@ -133,6 +133,8 @@ Atualmente o projeto possui:
 
 * Cadastro de usuários via API
 * Listagem de usuários via API
+* Busca de usuário por ID via API
+* Login via API
 
 ### Publicações
 
@@ -264,6 +266,25 @@ http://localhost:3000
 GET /usuarios
 ```
 
+#### Busca por ID
+```
+GET /usuarios/:id
+```
+
+#### Login
+```
+POST /usuarios/login
+```
+
+Exemplo:
+
+```json
+{
+  "email": "teste@teste.com",
+  "senhaHash": "123456"
+}
+```
+
 #### Criar usuário
 
 ```http
@@ -365,7 +386,6 @@ DELETE /comentarios/:id
 
 ## Próximas Funcionalidades
 
-* Login e autenticação
 * Controle de sessão
 * Perfil de usuário
 * Interface web completa
@@ -378,7 +398,7 @@ Em desenvolvimento.
 
 ### Versão Atual
 
-**0.8 – Sistema de pesquisa de publicações implementado**
+**0.9 – Login básico e autenticação inicial implementados**
 
 ### Concluído
 
@@ -391,6 +411,8 @@ Em desenvolvimento.
 
 * Cadastro
 * Listagem
+* Busca por ID
+* Login
 
 #### Publicações
 
@@ -413,7 +435,6 @@ Em desenvolvimento.
 
 ### Em desenvolvimento
 
-* Login e Autenticação
 * Controle de sessão
 * Perfil de usuário
 * Interface web

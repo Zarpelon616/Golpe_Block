@@ -15,6 +15,13 @@ router.get(
     UsuarioController.listarUsuarios
 );
 
+// LOGIN
+// GET /usuarios/login
+router.post(
+    '/login',
+    UsuarioController.login
+);
+
 // BUSCAR USUÁRIO POR ID
 // GET /usuarios/:id
 router.get(

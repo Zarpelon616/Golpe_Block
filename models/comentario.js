@@ -39,6 +39,7 @@ async function excluir(id) {
 
 }
 
+// Exporta as funções para utilização pelos Controllers
 module.exports = {
     listarPorPublicacao,
     criar,
