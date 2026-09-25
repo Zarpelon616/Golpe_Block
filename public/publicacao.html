@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golpe Block</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <button id="btnMenu">☰</button>
+        <h1>Golpe Block</h1>
+    </header>
+
+    <!-- Publicação -->
+    <main>
+
+        <section id="publicacao">
+
+            <h2 id="tituloPublicacao">
+                Golpe do PIX com Comprovante Falso
+            </h2>
+
+            <p id="dataPublicacao">
+                Publicado em: 25/09/2026
+            </p>
+
+            <hr>
+
+            <p>
+                Recebi contato de um suposto comprador interessado
+                em um produto que eu estava vendendo. Após a negociação,
+                ele enviou um comprovante de PIX aparentemente válido.
+                Como o dinheiro não caiu na conta, resolvi verificar
+                melhor e percebi que o comprovante era falso.
+            </p>
+
+            <p>
+                Fica o alerta para sempre conferir diretamente no
+                aplicativo do banco antes de entregar qualquer produto.
+            </p>
+
+        </section>
+
+        <hr>
+
+        <!-- Área de Comentários -->
+         <div id="listaComentarios">
+
+
+            <section id="comentarios">
+
+                <h3>Comentários</h3>
+
+                <!-- Comentário -->
+                <div class="comentario">
+
+                    <p>
+                        Também tentaram aplicar esse golpe comigo
+                        semana passada.
+                    </p>
+
+                    <button>⋮</button>
+
+                    <!-- Menu do comentário -->
+                    <div class="menuComentario" hidden>
+                        <button>Excluir comentário</button>
+                    </div>
+
+                </div>
+
+                <hr>
+
+            </section>
+        </div>
+        <hr>
+
+        <!-- Novo Comentário -->
+        <section id="novoComentario">
+
+            <h3>Adicionar Comentário</h3>
+
+            <form>
+
+                <textarea name="comentario" rows="5" cols="60" placeholder="Digite seu comentário..."></textarea>
+
+                <br><br>
+
+                <button type="submit">Comentar</button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <!-- Menu Lateral -->
+    <aside id="menuLateral" hidden>
+
+        <p>
+            Email: usuario@email.com
+        </p>
+
+        <button id="btnNovaPublicacao"> Nova Publicação</button>
+
+        <button id="btnLogout">Sair</button>
+
+    </aside>
+
+    <!-- Modal Nova Publicação -->
+    <div id="modalNovaPublicacao" hidden>
+
+        <h2>Nova Publicação</h2>
+        <button id="btnFecharModal">X</button>
+
+        <form>
+
+            <label for="titulo">Título</label>
+
+            <br>
+
+            <input type="text" id="titulo" name="titulo" >
+
+            <br><br>
+
+            <label for="conteudo">Conteúdo</label>
+
+            <br>
+
+            <textarea id="conteudo" name="conteudo" rows="8" cols="50"></textarea>
+
+            <br><br>
+
+            <button type="submit">Publicar</button>
+
+        </form>
+
+    </div>
+
+    <script src="js/publicacao.js"></script>
+
+</body>
+</html>

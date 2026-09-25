@@ -9,7 +9,115 @@
 </head>
 <body>
 
-    <h1>Golpe Block</h1>
+    <!-- Cabeçalho -->
+    <header>
+        <button id="btnMenu">☰</button>
+        <h1>Golpe Block</h1>
+    </header>
+
+    <!-- Pesquisa -->
+    <section id="pesquisa">
+        <input type="text" id="campoPesquisa" placeholder="Pesquisar publicação..." >
+        <button id="btnPesquisar">Pesquisar</button>
+    </section>
+
+    <!-- Lista de Publicações -->
+    <main>
+
+        <div id="listaPublicacoes">
+
+            <!-- Publicação 1 -->
+            <div class="publicacao">
+                <h2>Golpe do PIX</h2>
+
+                <p>
+                    Recebi um comprovante falso e o golpista
+                    tentou confirmar a entrega do produto...
+                </p>
+
+                <button>
+                    Ver publicação
+                </button>
+            </div>
+
+            <hr>
+
+            <!-- Publicação 2 -->
+            <div class="publicacao">
+                <h2>Golpe do WhatsApp</h2>
+
+                <p>
+                    Tentaram se passar pelo meu filho pedindo
+                    transferência urgente...
+                </p>
+
+                <button>
+                    Ver publicação
+                </button>
+            </div>
+
+            <hr>
+
+            <!-- Publicação 3 -->
+            <div class="publicacao">
+                <h2>Falso Atendimento Bancário</h2>
+
+                <p>
+                    Recebi uma ligação informando uma compra
+                    suspeita no cartão...
+                </p>
+
+                <button>
+                    Ver publicação
+                </button>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Menu Lateral -->
+    <aside id="menuLateral" hidden>
+
+        <p>
+            Email: usuario@email.com
+        </p>
+
+        <button id="btnNovaPublicacao"> Nova Publicação</button>
+
+        <button id="btnLogout">Sair</button>
+
+    </aside>
+
+    <!-- Modal Nova Publicação -->
+    <div id="modalNovaPublicacao" hidden>
+
+        <h2>Nova Publicação</h2>
+        <button id="btnFecharModal">X</button>
+
+        <form>
+
+            <label for="titulo">Título</label>
+
+            <br>
+
+            <input type="text" id="titulo" name="titulo" >
+
+            <br><br>
+
+            <label for="conteudo">Conteúdo</label>
+
+            <br>
+
+            <textarea id="conteudo" name="conteudo" rows="8" cols="50"></textarea>
+
+            <br><br>
+
+            <button type="submit">Publicar</button>
+
+        </form>
+
+    </div>
 
     <script src="js/main.js"></script>
 

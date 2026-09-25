@@ -1,0 +1,1 @@
+document.getElementById("tituloPublicacao").textContent = publicacao.titulo;
