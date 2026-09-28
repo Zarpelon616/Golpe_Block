@@ -38,6 +38,10 @@ const comentariosRoutes = require('./routes/comentarios');
 // Converte automaticamente dados JSON enviados pelo cliente em objetos JavaScript acessíveis através de req.body
 app.use(express.json());
 
+
+app.use(express.static('public'));
+
+
 // Permite o acesso aos arquivos estáticos da pasta 'public' como HTML, CSS, JavaScript e imagens
 app.use(express.static(path.join(__dirname, 'public')));
 

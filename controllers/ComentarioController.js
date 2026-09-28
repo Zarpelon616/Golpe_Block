@@ -25,11 +25,23 @@ async function criarComentario(req, res) {
 
         }
 
+        if (
+            !conteudo ||
+            isNaN(Number(autorId)) ||
+            isNaN(Number(publicacaoId))
+        ) {
+
+            return res.status(400).json({
+                erro: 'Dados inválidos.'
+            });
+
+        }
+
         const comentario =
             await Comentario.criar(
                 conteudo,
-                autorId,
-                publicacaoId
+                Number(autorId),
+                Number(publicacaoId)
             );
 
         res.status(201).json({

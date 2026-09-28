@@ -11,8 +11,13 @@
 
     <!-- Cabeçalho -->
     <header>
-        <button id="btnMenu">☰</button>
+
+        <button id="btnMenu">
+            ☰
+        </button>
+
         <h1>Golpe Block</h1>
+
     </header>
 
     <!-- Publicação -->
@@ -21,61 +26,44 @@
         <section id="publicacao">
 
             <h2 id="tituloPublicacao">
-                Golpe do PIX com Comprovante Falso
+                Título da publicação
             </h2>
 
             <p id="dataPublicacao">
-                Publicado em: 25/09/2026
+                Publicado em:
             </p>
 
             <hr>
 
-            <p>
-                Recebi contato de um suposto comprador interessado
-                em um produto que eu estava vendendo. Após a negociação,
-                ele enviou um comprovante de PIX aparentemente válido.
-                Como o dinheiro não caiu na conta, resolvi verificar
-                melhor e percebi que o comprovante era falso.
-            </p>
+            <div id="conteudoPublicacao">
 
-            <p>
-                Fica o alerta para sempre conferir diretamente no
-                aplicativo do banco antes de entregar qualquer produto.
-            </p>
+                <!--
+                O conteúdo da publicação
+                será carregado pelo JavaScript.
+                -->
+
+            </div>
 
         </section>
 
         <hr>
 
         <!-- Área de Comentários -->
-         <div id="listaComentarios">
+        <section id="comentarios">
 
+            <h3>Comentários</h3>
 
-            <section id="comentarios">
+            <div id="listaComentarios">
 
-                <h3>Comentários</h3>
+                <!--
+                Os comentários serão carregados
+                dinamicamente pelo JavaScript.
+                -->
 
-                <!-- Comentário -->
-                <div class="comentario">
+            </div>
 
-                    <p>
-                        Também tentaram aplicar esse golpe comigo
-                        semana passada.
-                    </p>
+        </section>
 
-                    <button>⋮</button>
-
-                    <!-- Menu do comentário -->
-                    <div class="menuComentario" hidden>
-                        <button>Excluir comentário</button>
-                    </div>
-
-                </div>
-
-                <hr>
-
-            </section>
-        </div>
         <hr>
 
         <!-- Novo Comentário -->
@@ -83,13 +71,15 @@
 
             <h3>Adicionar Comentário</h3>
 
-            <form>
+            <form id="formComentario">
 
-                <textarea name="comentario" rows="5" cols="60" placeholder="Digite seu comentário..."></textarea>
+                <textarea id="campoComentario" name="comentario" rows="5" cols="60" placeholder="Digite seu comentário..." ></textarea>
 
                 <br><br>
 
-                <button type="submit">Comentar</button>
+                <button type="submit" id="btnComentar" >
+                    Comentar
+                </button>
 
             </form>
 
@@ -100,13 +90,17 @@
     <!-- Menu Lateral -->
     <aside id="menuLateral" hidden>
 
-        <p>
-            Email: usuario@email.com
+        <p id="emailUsuario">
+            Email:
         </p>
 
-        <button id="btnNovaPublicacao"> Nova Publicação</button>
+        <button id="btnNovaPublicacao">
+            Nova Publicação
+        </button>
 
-        <button id="btnLogout">Sair</button>
+        <button id="btnLogout">
+            Sair
+        </button>
 
     </aside>
 
@@ -114,27 +108,36 @@
     <div id="modalNovaPublicacao" hidden>
 
         <h2>Nova Publicação</h2>
-        <button id="btnFecharModal">X</button>
 
-        <form>
+        <button id="btnFecharModal">
+            X
+        </button>
 
-            <label for="titulo">Título</label>
+        <form id="formNovaPublicacao">
 
-            <br>
-
-            <input type="text" id="titulo" name="titulo" >
-
-            <br><br>
-
-            <label for="conteudo">Conteúdo</label>
+            <label for="tituloNovaPublicacao">
+                Título
+            </label>
 
             <br>
 
-            <textarea id="conteudo" name="conteudo" rows="8" cols="50"></textarea>
+            <input type="text" id="tituloNovaPublicacao" name="tituloNovaPublicacao" >
 
             <br><br>
 
-            <button type="submit">Publicar</button>
+            <label for="conteudoNovaPublicacao">
+                Conteúdo
+            </label>
+
+            <br>
+
+            <textarea id="conteudoNovaPublicacao" name="conteudoNovaPublicacao" rows="8" cols="50" ></textarea>
+
+            <br><br>
+
+            <button type="submit" id="btnPublicar" >
+                Publicar
+            </button>
 
         </form>
 
