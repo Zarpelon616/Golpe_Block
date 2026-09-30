@@ -98,6 +98,20 @@ GolpeBlock/
 │   └── migrations/
 │
 ├── public/
+│   ├── css/
+│     ├── cadastro.css
+│     ├── login.css
+│     ├── publicacao.css
+│     └── style.css
+│   ├── js/
+│     ├── cadastro.js
+│     ├── login.js
+│     ├── main.js
+│     └──publicacao.js
+│   ├── cadastro.html
+│   ├── index.html
+│   ├── login.html
+│   └── publicacao.html
 │
 ├── routes/
 │   ├── comentarios.js
@@ -121,34 +135,38 @@ GolpeBlock/
 
 Atualmente o projeto possui:
 
-* Estrutura inicial do servidor Node.js
-* Integração com Express
-* Arquitetura MVC
-* Banco de dados SQLite
-* Prisma ORM configurado
+* Estrutura completa em arquitetura MVC
+* Front-end desenvolvido em HTML, CSS e JavaScript
+* Back-end em Node.js e Express
+* Banco de dados SQLite integrado ao Prisma ORM
 * Sistema de migrations
 * Sistema de rotas
+* Integração completa entre Front-end e Back-end
+* Controle de acesso por autenticação
+* Interface funcional para usuários
 
 ### Usuários
 
-* Cadastro de usuários via API
-* Listagem de usuários via API
-* Busca de usuário por ID via API
-* Login via API
+* Cadastro de usuários
+* Login de usuários
+* Armazenamento de sessão local via LocalStorage
+* Proteção de páginas para usuários não autenticados
+* Logout
 
 ### Publicações
 
-* Criação de publicações via API
-* Listagem de publicações via API
+* Criação de publicações 
+* Listagem de publicações 
 * Consulta de publicação por ID
-* Pesquisa de publicações por título via API
-* Exclusão de publicações via API
+* Pesquisa de publicações por palavras-chave
+* Exclusão de publicações 
+* Visualização individual de publicações
 
 ### Comentários
 
-* Criação de comentários via API
-* Listagem de comentários por publicação via API
-* Exclusão de comentários via API
+* Criação de comentários 
+* Listagem de comentários por publicação 
+* Exclusão de comentários 
 
 ### Relacionamentos
 
@@ -386,9 +404,12 @@ DELETE /comentarios/:id
 
 ## Próximas Funcionalidades
 
-* Controle de sessão
-* Perfil de usuário
-* Interface web completa
+* Edição de publicações
+* Edição de comentários
+* Sistema de categorias
+* Sistema de reputação
+* Recuperação de senha
+* Melhorias de usabilidade e interface
 
 ---
 
@@ -398,7 +419,7 @@ Em desenvolvimento.
 
 ### Versão Atual
 
-**0.9 – Login básico e autenticação inicial implementados**
+1.0 – MVP Funcional Concluído
 
 ### Concluído
 
@@ -410,16 +431,17 @@ Em desenvolvimento.
 #### Usuários
 
 * Cadastro
-* Listagem
-* Busca por ID
 * Login
+* Logout
+* Proteção de paginas
 
 #### Publicações
 
 * Criação
 * Listagem
 * Busca por ID
-* Pesquisa por título
+* Pesquisa
+* Visualização individual
 * Exclusão
 
 #### Comentários
@@ -428,6 +450,15 @@ Em desenvolvimento.
 * Listagem por publicação
 * Exclusão
 
+#### Interface
+
+* Tela de Login
+* Tela de Cadastro
+* Página Inicial
+* Página de Publicação
+* Menu lateral do usuário
+* Modal para criação de publicações
+
 #### Banco de Dados
 
 * Relacionamentos implementados
@@ -435,6 +466,6 @@ Em desenvolvimento.
 
 ### Em desenvolvimento
 
-* Controle de sessão
-* Perfil de usuário
-* Interface web
+* Deploy da aplicação
+* Melhorias de interface
+* Funcionalidades futuras previstas
