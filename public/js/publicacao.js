@@ -37,6 +37,9 @@ const btnFecharModal =
 const formNovaPublicacao =
     document.getElementById('formNovaPublicacao');
 
+const btnExcluirPublicacao =
+    document.getElementById( 'btnExcluirPublicacao' );
+
 
 // Verificar login
 const usuarioId =
@@ -69,6 +72,33 @@ btnMenu.addEventListener(
     }
 );
 
+// Fechar menu ao clicar fora dele
+document.addEventListener(
+    'click',
+    (evento) => {
+
+        const clicouNoMenu =
+            menuLateral.contains(
+                evento.target
+            );
+
+        const clicouNoBotaoMenu =
+            btnMenu.contains(
+                evento.target
+            );
+
+        if (
+            !menuLateral.hidden &&
+            !clicouNoMenu &&
+            !clicouNoBotaoMenu
+        ) {
+
+            menuLateral.hidden = true;
+
+        }
+
+    }
+);
 
 //
 // Logout
@@ -348,6 +378,67 @@ formComentario.addEventListener(
     }
 );
 
+//
+// Excluir publicação
+//
+btnExcluirPublicacao.addEventListener(
+    'click',
+    async () => {
+
+        const confirmar = confirm(
+            'Deseja realmente excluir esta publicação?'
+        );
+
+        if (!confirmar) {
+            return;
+        }
+
+        try {
+
+            const resposta =
+                await fetch(
+                    `http://localhost:3000/publicacoes/${publicacaoId}`,
+                    {
+                        method: 'DELETE'
+                    }
+                );
+
+            const dados =
+                await resposta.json();
+
+            if (!resposta.ok) {
+
+                alert(
+                    dados.erro ||
+                    'Erro ao excluir publicação.'
+                );
+
+                return;
+            }
+
+            alert(
+                'Publicação excluída com sucesso.'
+            );
+
+            localStorage.removeItem(
+                'publicacaoId'
+            );
+
+            window.location.href =
+                'index.html';
+
+        } catch (erro) {
+
+            console.error(erro);
+
+            alert(
+                'Erro ao excluir publicação.'
+            );
+
+        }
+
+    }
+);
 
 //
 // Modal Nova Publicação

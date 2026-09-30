@@ -31,6 +31,7 @@ const btnPesquisar =
 const usuarioId =
     localStorage.getItem('usuarioId');
 
+
 //usados para verificação durante teste
 //alert(usuarioId);
 //alert(typeof usuarioId);
@@ -56,6 +57,33 @@ btnMenu.addEventListener('click', () => {
 
 });
 
+// Fechar menu ao clicar fora dele
+document.addEventListener(
+    'click',
+    (evento) => {
+
+        const clicouNoMenu =
+            menuLateral.contains(
+                evento.target
+            );
+
+        const clicouNoBotaoMenu =
+            btnMenu.contains(
+                evento.target
+            );
+
+        if (
+            !menuLateral.hidden &&
+            !clicouNoMenu &&
+            !clicouNoBotaoMenu
+        ) {
+
+            menuLateral.hidden = true;
+
+        }
+
+    }
+);
 
 // Logout
 btnLogout.addEventListener('click', () => {

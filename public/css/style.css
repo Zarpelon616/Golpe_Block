@@ -1,3 +1,290 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Página */
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #3f3f3f;
+    color: #333;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #1e293b;
+    color: white;
+
+    padding: 15px 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+header h1 {
+    font-size: 1.8rem;
+}
+
+#btnMenu {
+    background: none;
+    border: none;
+
+    color: white;
+
+    font-size: 1.8rem;
+
+    cursor: pointer;
+}
+
+/* Pesquisa */
+#pesquisa {
+    max-width: 900px;
+
+    margin: 20px auto;
+
+    display: flex;
+    gap: 10px;
+
+    padding: 0 20px;
+}
+
+#campoPesquisa {
+    flex: 1;
+
+    padding: 12px;
+
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+#btnPesquisar {
+    padding: 12px 20px;
+
+    border: none;
+    border-radius: 6px;
+
+    background-color: #2563eb;
+    color: white;
+
+    cursor: pointer;
+}
+
+#btnPesquisar:hover {
+    background-color: #1d4ed8;
+}
+
+/* Área principal */
+main {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Lista */
+#listaPublicacoes {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/*
+Exemplo de card para quando o JS criar publicações
+
+<div class="publicacao">
+    <h3>Título</h3>
+    <p>Conteúdo...</p>
+</div>
+*/
+
+.publicacao {
+    background-color: white;
+
+    padding: 20px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.publicacao h3 {
+    margin-bottom: 10px;
+}
+
+.publicacao p {
+    line-height: 1.5;
+}
+
+/* Menu lateral */
+#menuLateral {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 260px;
+    height: 100vh;
+
+    background-color: #1e293b;
+
+    color: white;
+
+    padding: 20px;
+
+    box-shadow: 3px 0 10px rgba(0,0,0,0.25);
+
+    z-index: 1000;
+}
+
+/* Email do usuário */
+#emailUsuario {
+    margin-bottom: 25px;
+
+    padding-bottom: 15px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+
+    word-break: break-word;
+
+    font-size: 14px;
+}
+
+/* Botões do menu */
+#menuLateral button {
+    width: 100%;
+
+    padding: 12px;
+
+    margin-bottom: 10px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+/* Nova publicação */
+#btnNovaPublicacao {
+    background-color: #2563eb;
+
+    color: white;
+}
+
+#btnNovaPublicacao:hover {
+    background-color: #1d4ed8;
+}
+
+/* Logout */
+#btnLogout {
+    background-color: #dc2626;
+
+    color: white;
+}
+
+#btnLogout:hover {
+    background-color: #b91c1c;
+}
+/* Modal */
+#modalNovaPublicacao {
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background-color: white;
+
+    width: 600px;
+    max-width: 90%;
+
+    padding: 25px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 0 25px rgba(0,0,0,0.3);
+
+    z-index: 1000;
+}
+
+#modalNovaPublicacao h2 {
+    margin-bottom: 20px;
+}
+
+#tituloPublicacao,
+#conteudoPublicacao {
+    width: 100%;
+
+    padding: 10px;
+
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+#conteudoPublicacao {
+    resize: vertical;
+}
+
+#btnPublicar {
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+    border-radius: 6px;
+
+    background-color: #16a34a;
+    color: white;
+
+    cursor: pointer;
+}
+
+#btnPublicar:hover {
+    background-color: #15803d;
+}
+
+#btnFecharModal {
+    float: right;
+
+    border: none;
+    background: none;
+
+    font-size: 20px;
+
+    cursor: pointer;
+}
+
+.btnVerPublicacao {
+    margin-top: 15px;
+
+    padding: 10px 16px;
+
+    border: none;
+    border-radius: 6px;
+
+    background-color: #2563eb;
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.btnVerPublicacao:hover {
+    background-color: #1d4ed8;
+}
+
+.btnVerPublicacao:active {
+    transform: scale(0.98);
 }
