@@ -419,7 +419,7 @@ Em desenvolvimento.
 
 ### Versão Atual
 
-1.0 – MVP Funcional Concluído
+1.1 – MVP Funcional Concluído implantado disponivel para acesso publico
 
 ### Concluído
 
@@ -466,6 +466,22 @@ Em desenvolvimento.
 
 ### Em desenvolvimento
 
-* Deploy da aplicação
-* Melhorias de interface
-* Funcionalidades futuras previstas
+* Possiveis Funcionalidades e Melhorias futuras
+
+## Deploy
+
+O projeto encontra-se hospedado e disponível publicamente através da plataforma Render.
+
+### Aplicação Online
+
+https://golpe-block.onrender.com
+
+### Tecnologias utilizadas no deploy
+
+* Render (Hospedagem)
+* Node.js
+* Express
+* Prisma ORM
+* SQLite
+
+O deploy é realizado automaticamente a partir do repositório GitHub através da integração contínua disponibilizada pela plataforma Render.
