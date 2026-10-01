@@ -103,7 +103,7 @@ async function carregarPublicacoes() {
 
         const resposta =
             await fetch(
-                'http://localhost:3000/publicacoes'
+                '/publicacoes'
             );
 
         const publicacoes =
@@ -301,7 +301,7 @@ btnPesquisar.addEventListener(
 
             const resposta =
                 await fetch(
-                    `http://localhost:3000/publicacoes/busca?q=${encodeURIComponent(texto)}`
+                    `/publicacoes/busca?q=${encodeURIComponent(texto)}`
                 );
 
             const publicacoes =

@@ -175,7 +175,7 @@ async function carregarComentarios() {
 
         const resposta =
             await fetch(
-                `http://localhost:3000/comentarios/publicacao/${publicacaoId}`
+                `/comentarios/publicacao/${publicacaoId}`
             );
 
         const comentarios =
@@ -266,7 +266,7 @@ function renderizarComentarios(
 
                         const resposta =
                             await fetch(
-                                `http://localhost:3000/comentarios/${comentario.id}`,
+                                `/comentarios/${comentario.id}`,
                                 {
                                     method:
                                         'DELETE'
@@ -332,7 +332,7 @@ formComentario.addEventListener(
 
             const resposta =
                 await fetch(
-                    'http://localhost:3000/comentarios',
+                    '/comentarios',
                     {
                         method: 'POST',
                         headers: {
@@ -397,7 +397,7 @@ btnExcluirPublicacao.addEventListener(
 
             const resposta =
                 await fetch(
-                    `http://localhost:3000/publicacoes/${publicacaoId}`,
+                    `/publicacoes/${publicacaoId}`,
                     {
                         method: 'DELETE'
                     }
@@ -496,7 +496,7 @@ formNovaPublicacao.addEventListener(
 
             const resposta =
                 await fetch(
-                    'http://localhost:3000/publicacoes',
+                    '/publicacoes',
                     {
                         method: 'POST',
                         headers: {
