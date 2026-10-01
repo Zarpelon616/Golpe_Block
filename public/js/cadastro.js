@@ -25,7 +25,7 @@ btnCadastrar.addEventListener('click', async () => {
     try {
 
         const resposta = await fetch(
-            'http://localhost:3000/usuarios',
+            '/usuarios',
             {
                 method: 'POST',
                 headers: {

@@ -235,7 +235,7 @@ formNovaPublicacao.addEventListener(
 
             const resposta =
                 await fetch(
-                    'http://localhost:3000/publicacoes',
+                    '/publicacoes',
                     {
                         method: 'POST',
                         headers: {

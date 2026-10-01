@@ -138,7 +138,7 @@ async function carregarPublicacao() {
 
         const resposta =
             await fetch(
-                `http://localhost:3000/publicacoes/${publicacaoId}`
+                `/publicacoes/${publicacaoId}`
             );
 
         const publicacao =
