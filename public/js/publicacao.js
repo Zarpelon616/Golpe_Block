@@ -154,6 +154,15 @@ async function carregarPublicacao() {
         alert(JSON.stringify(publicacao));
 
         tituloPublicacao.textContent =
+            'TITULO TESTE';
+
+        conteudoPublicacao.textContent =
+            'CONTEUDO TESTE';
+
+        dataPublicacao.textContent =
+            'DATA TESTE';
+/*
+        tituloPublicacao.textContent =
             publicacao.titulo;
 
         conteudoPublicacao.textContent =
@@ -161,6 +170,7 @@ async function carregarPublicacao() {
 
         dataPublicacao.textContent =
             `Publicado em: ${publicacao.dataCriacao}`;
+*/
 
     } catch (erro) {
 
@@ -360,7 +370,8 @@ function renderizarComentarios(
 /*
 Processa o envio de novos comentários.
 */
-Comentario.addEventListener(
+//Comentario.addEventListener(
+formComentario.addEventListener(
     'submit',
     async (evento) => {
 
