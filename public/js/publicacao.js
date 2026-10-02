@@ -150,13 +150,13 @@ async function carregarPublicacao() {
 
         const publicacao =
             await resposta.json();
-
+/*
         alert(JSON.stringify(publicacao));
 
         alert(publicacao.titulo);
         alert(publicacao.conteudo);
         alert(publicacao.dataCriacao);
-
+*/
         tituloPublicacao.textContent =
             publicacao.titulo;
 
