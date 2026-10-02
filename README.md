@@ -77,6 +77,7 @@ GolpeBlock/
 ├── .windsurf/
 │
 ├── config/
+│   └── app.js
 │
 ├── controllers/
 │   ├── ComentarioController.js
