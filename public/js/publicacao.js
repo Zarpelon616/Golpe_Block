@@ -143,6 +143,7 @@ async function carregarPublicacao() {
 
     try {
 
+        // Solicita os dados da publicação ao servidor.
         const resposta =
             await fetch(
                 `/publicacoes/${publicacaoId}`
@@ -151,12 +152,14 @@ async function carregarPublicacao() {
         const publicacao =
             await resposta.json();
 /*
+            usado durante testes
         alert(JSON.stringify(publicacao));
 
         alert(publicacao.titulo);
         alert(publicacao.conteudo);
         alert(publicacao.dataCriacao);
 */
+        // Atualiza as informações exibidas na tela.
         tituloPublicacao.textContent =
             publicacao.titulo;
 
@@ -165,7 +168,9 @@ async function carregarPublicacao() {
 
         dataPublicacao.textContent =
             `Publicado em: ${publicacao.dataCriacao}`;
-            /*
+/*
+            Usado durante teste
+
         const publicacao =
             await resposta.json();
 
@@ -179,15 +184,6 @@ async function carregarPublicacao() {
 
         dataPublicacao.textContent =
             'DATA TESTE';
-/*
-        tituloPublicacao.textContent =
-            publicacao.titulo;
-
-        conteudoPublicacao.textContent =
-            publicacao.conteudo;
-
-        dataPublicacao.textContent =
-            `Publicado em: ${publicacao.dataCriacao}`;
 */
 
     } catch (erro) {
@@ -198,42 +194,6 @@ async function carregarPublicacao() {
 
 }
 
-/*
-async function carregarPublicacao() {
-
-    try {
-
-        // Solicita os dados da publicação ao servidor.
-        const resposta =
-            await fetch(
-                `/publicacoes/${publicacaoId}`
-            );
-
-        const publicacao =
-            await resposta.json();
-
-        // Atualiza as informações exibidas na tela.
-        tituloPublicacao.textContent =
-            publicacao.titulo;
-
-        conteudoPublicacao.textContent =
-            publicacao.conteudo;
-
-        dataPublicacao.textContent =
-            `Publicado em: ${publicacao.dataCriacao}`;
-
-    } catch (erro) {
-
-        console.error(erro);
-
-        alert(
-            'Erro ao carregar publicação.'
-        );
-
-    }
-
-}
-*/
 
 /*
 Carregamento e exibição dos comentários da publicação.
