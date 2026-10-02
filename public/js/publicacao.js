@@ -138,6 +138,39 @@ if (!publicacaoId) {
 Busca os dados da publicação na API
 e atualiza os elementos da página.
 */
+
+async function carregarPublicacao() {
+
+    try {
+
+        const resposta =
+            await fetch(
+                `/publicacoes/${publicacaoId}`
+            );
+
+        const publicacao =
+            await resposta.json();
+
+        alert(JSON.stringify(publicacao));
+
+        tituloPublicacao.textContent =
+            publicacao.titulo;
+
+        conteudoPublicacao.textContent =
+            publicacao.conteudo;
+
+        dataPublicacao.textContent =
+            `Publicado em: ${publicacao.dataCriacao}`;
+
+    } catch (erro) {
+
+        alert(erro);
+
+    }
+
+}
+
+/*
 async function carregarPublicacao() {
 
     try {
@@ -172,7 +205,7 @@ async function carregarPublicacao() {
     }
 
 }
-
+*/
 
 /*
 Carregamento e exibição dos comentários da publicação.
