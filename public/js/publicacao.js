@@ -1,3 +1,4 @@
+// Referências aos elementos da interface utilizados na página.
 const btnMenu = document.getElementById('btnMenu');
 const menuLateral = document.getElementById('menuLateral');
 
@@ -41,17 +42,17 @@ const btnExcluirPublicacao =
     document.getElementById( 'btnExcluirPublicacao' );
 
 
-// Verificar login
+// Recupera o usuário autenticado armazenado no navegador.
 const usuarioId =
     localStorage.getItem('usuarioId');
 
+// Recupera o usuário autenticado armazenado no navegador.
 if (!usuarioId) {
     window.location.href =
         'login.html';
 }
 
-
-// Exibir email
+// Exibe o e-mail do usuário no menu lateral.
 const email =
     localStorage.getItem('email');
 
@@ -59,9 +60,9 @@ emailUsuario.textContent =
     `Email: ${email || ''}`;
 
 
-//
-// Menu lateral
-//
+/*
+Controle de abertura e fechamento do menu lateral.
+*/
 btnMenu.addEventListener(
     'click',
     () => {
@@ -116,14 +117,16 @@ btnLogout.addEventListener(
 );
 
 
-//
-// Publicação
-//
+/*
+Carregamento dos dados da publicação selecionada.
+*/
+// Obtém o ID da publicação armazenado na página anterior.
 const publicacaoId =
     localStorage.getItem(
         'publicacaoId'
     );
 
+// Caso nenhuma publicação tenha sido selecionada, retorna à página principal.
 if (!publicacaoId) {
 
     window.location.href =
@@ -131,11 +134,15 @@ if (!publicacaoId) {
 
 }
 
-
+/*
+Busca os dados da publicação na API
+e atualiza os elementos da página.
+*/
 async function carregarPublicacao() {
 
     try {
 
+        // Solicita os dados da publicação ao servidor.
         const resposta =
             await fetch(
                 `/publicacoes/${publicacaoId}`
@@ -144,6 +151,7 @@ async function carregarPublicacao() {
         const publicacao =
             await resposta.json();
 
+        // Atualiza as informações exibidas na tela.
         tituloPublicacao.textContent =
             publicacao.titulo;
 
@@ -166,9 +174,10 @@ async function carregarPublicacao() {
 }
 
 
-//
-// Comentários
-//
+/*
+Carregamento e exibição dos comentários da publicação.
+Busca todos os comentários associados à publicação atual.
+*/
 async function carregarComentarios() {
 
     try {
@@ -202,11 +211,16 @@ function renderizarComentarios(
     comentarios
 ) {
 
+    /*
+    Renderiza dinamicamente os comentários recebidos da API.
+    */
+   // Remove comentários já exibidos antes de renderizar novamente.
     listaComentarios.innerHTML = '';
 
     comentarios.forEach(
         (comentario) => {
 
+            // Cria um container para representar o comentário.
             const div =
                 document.createElement('div');
 
@@ -248,6 +262,7 @@ function renderizarComentarios(
                     '.btnExcluirComentario'
                 );
 
+            // Exibe ou oculta o menu de ações do comentário.
             btnMenuComentario.addEventListener(
                 'click',
                 () => {
@@ -258,6 +273,7 @@ function renderizarComentarios(
                 }
             );
 
+            // Solicita a exclusão do comentário selecionado.
             btnExcluir.addEventListener(
                 'click',
                 async () => {
@@ -284,6 +300,7 @@ function renderizarComentarios(
                             return;
                         }
 
+                        // Atualiza a lista após a exclusão.
                         carregarComentarios();
 
                     } catch (erro) {
@@ -307,15 +324,17 @@ function renderizarComentarios(
 }
 
 
-//
-// Criar comentário
-//
-formComentario.addEventListener(
+/*
+Processa o envio de novos comentários.
+*/
+Comentario.addEventListener(
     'submit',
     async (evento) => {
 
+        // Impede o recarregamento padrão da página.
         evento.preventDefault();
 
+        // Obtém e remove espaços extras do comentário digitado.
         const conteudo =
             campoComentario.value.trim();
 
@@ -330,6 +349,7 @@ formComentario.addEventListener(
 
         try {
 
+            // Envia o comentário para a API.
             const resposta =
                 await fetch(
                     '/comentarios',
@@ -360,6 +380,7 @@ formComentario.addEventListener(
                     return;
                 }
 
+            // Limpa o campo após o envio.
             campoComentario.value =
                 '';
 
@@ -378,13 +399,14 @@ formComentario.addEventListener(
     }
 );
 
-//
-// Excluir publicação
-//
+/*
+Permite remover a publicação atualmente aberta.
+*/
 btnExcluirPublicacao.addEventListener(
     'click',
     async () => {
 
+        // Solicita confirmação antes da exclusão.
         const confirmar = confirm(
             'Deseja realmente excluir esta publicação?'
         );
@@ -420,6 +442,7 @@ btnExcluirPublicacao.addEventListener(
                 'Publicação excluída com sucesso.'
             );
 
+            // Remove o ID armazenado da publicação excluída.
             localStorage.removeItem(
                 'publicacaoId'
             );
@@ -440,9 +463,9 @@ btnExcluirPublicacao.addEventListener(
     }
 );
 
-//
-// Modal Nova Publicação
-//
+/*
+Controle do modal utilizado para criar novas publicações.
+*/
 btnNovaPublicacao.addEventListener(
     'click',
     () => {
@@ -463,16 +486,16 @@ btnFecharModal.addEventListener(
     }
 );
 
-
-//
-// Criar publicação
-//
+/*
+Processa o cadastro de uma nova publicação.
+*/
 formNovaPublicacao.addEventListener(
     'submit',
     async (evento) => {
 
         evento.preventDefault();
 
+        // Obtém os dados preenchidos pelo usuário.
         const titulo =
             document.getElementById(
                 'tituloNovaPublicacao'
@@ -494,6 +517,7 @@ formNovaPublicacao.addEventListener(
 
         try {
 
+            // Envia os dados da nova publicação para a API.
             const resposta =
                 await fetch(
                     '/publicacoes',
@@ -523,6 +547,7 @@ formNovaPublicacao.addEventListener(
             modalNovaPublicacao.hidden =
                 true;
 
+            // Limpa o formulário após a criação.
             formNovaPublicacao.reset();
 
             alert(
@@ -546,3 +571,22 @@ formNovaPublicacao.addEventListener(
 // Inicialização
 carregarPublicacao();
 carregarComentarios();
+
+/*
+Arquivo responsável pela página de detalhes de uma publicação.
+
+Funcionalidades implementadas:
+
+- Verificação de autenticação.
+- Exibição da publicação selecionada.
+- Listagem de comentários.
+- Criação de comentários.
+- Exclusão de comentários.
+- Exclusão de publicações.
+- Abertura e fechamento do menu lateral.
+- Logout.
+- Criação de novas publicações pelo modal.
+
+A comunicação com o servidor é realizada através da API
+utilizando requisições fetch().
+*/

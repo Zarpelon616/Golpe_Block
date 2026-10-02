@@ -1,3 +1,4 @@
+// Referências aos principais elementos da interface.
 const btnMenu = document.getElementById('btnMenu');
 const menuLateral = document.getElementById('menuLateral');
 
@@ -27,7 +28,7 @@ const btnPesquisar =
     document.getElementById('btnPesquisar');
 
 
-// Verificar login
+// Recupera o identificador do usuário armazenado após o login.
 const usuarioId =
     localStorage.getItem('usuarioId');
 
@@ -36,12 +37,13 @@ const usuarioId =
 //alert(usuarioId);
 //alert(typeof usuarioId);
 
+// Impede o acesso à página caso o usuário não esteja autenticado.
 if (!usuarioId) {
     window.location.href = 'login.html';
 }
 
 
-// Exibir email
+// Exibe o e-mail do usuário autenticado no menu lateral.
 const email =
     localStorage.getItem('email');
 
@@ -49,7 +51,7 @@ emailUsuario.textContent =
     `Email: ${email || ''}`;
 
 
-// Abrir/fechar menu
+// Alterna a visibilidade do menu lateral.
 btnMenu.addEventListener('click', () => {
 
     menuLateral.hidden =
@@ -57,7 +59,7 @@ btnMenu.addEventListener('click', () => {
 
 });
 
-// Fechar menu ao clicar fora dele
+// Fecha automaticamente o menu quando o usuário clica fora dele.
 document.addEventListener(
     'click',
     (evento) => {
@@ -85,7 +87,7 @@ document.addEventListener(
     }
 );
 
-// Logout
+// Remove os dados armazenados localmente e retorna para a tela de login(logout).
 btnLogout.addEventListener('click', () => {
 
     localStorage.clear();
@@ -96,16 +98,21 @@ btnLogout.addEventListener('click', () => {
 });
 
 
-// Carregar publicações
+/*
+Solicita à API a lista de publicações cadastradas
+e envia os dados para renderização na interface.
+*/
 async function carregarPublicacoes() {
 
     try {
 
+        // Obtém todas as publicações cadastradas.
         const resposta =
             await fetch(
                 '/publicacoes'
             );
 
+        // Converte a resposta recebida para JSON.
         const publicacoes =
             await resposta.json();
 
@@ -126,16 +133,20 @@ async function carregarPublicacoes() {
 }
 
 
-// Renderizar publicações
+/*
+Exibe dinamicamente as publicações retornadas pela API.
+*/
 function renderizarPublicacoes(
     publicacoes
 ) {
 
+    // Limpa a lista atual antes de renderizar novamente.
     listaPublicacoes.innerHTML = '';
 
     publicacoes.forEach(
         (publicacao) => {
 
+            // Cria um container para representar a publicação na interface.
             const div =
                 document.createElement('div');
 
@@ -160,6 +171,7 @@ function renderizarPublicacoes(
                 'click',
                 () => {
 
+                    // Armazena o ID da publicação para consulta na página de detalhes.
                     localStorage.setItem(
                         'publicacaoId',
                         publicacao.id
@@ -181,7 +193,7 @@ function renderizarPublicacoes(
 }
 
 
-// Abrir modal
+// Exibe o formulário de criação de publicação.
 btnNovaPublicacao.addEventListener(
     'click',
     () => {
@@ -193,7 +205,7 @@ btnNovaPublicacao.addEventListener(
 );
 
 
-// Fechar modal
+// Oculta o formulário de criação de publicação.
 btnFecharModal.addEventListener(
     'click',
     () => {
@@ -204,12 +216,14 @@ btnFecharModal.addEventListener(
     }
 );
 
-
-// Criar publicação
+/*
+Processa o envio do formulário de nova publicação.
+*/
 formNovaPublicacao.addEventListener(
     'submit',
     async (evento) => {
 
+        // Impede o recarregamento padrão da página.
         evento.preventDefault();
 
         const titulo =
@@ -222,6 +236,7 @@ formNovaPublicacao.addEventListener(
                 'conteudoPublicacao'
             ).value;
 
+        // Verifica se todos os campos obrigatórios foram preenchidos.
         if (!titulo || !conteudo) {
 
             alert(
@@ -233,6 +248,7 @@ formNovaPublicacao.addEventListener(
 
         try {
 
+            // Envia os dados da publicação para a API.
             const resposta =
                 await fetch(
                     '/publicacoes',
@@ -263,11 +279,14 @@ formNovaPublicacao.addEventListener(
                 return;
             }
 
+            // Fecha o modal após o cadastro bem-sucedido.
             modalNovaPublicacao.hidden =
                 true;
 
+            // Limpa os campos do formulário.
             formNovaPublicacao.reset();
 
+            // Atualiza a listagem exibida na tela.
             carregarPublicacoes();
 
         } catch (erro) {
@@ -284,14 +303,16 @@ formNovaPublicacao.addEventListener(
 );
 
 
-// Pesquisar publicação
+// Realiza a pesquisa de publicações pelo título.
 btnPesquisar.addEventListener(
     'click',
     async () => {
 
+        // Obtém o texto digitado pelo usuário.
         const texto =
             campoPesquisa.value.trim();
 
+        // Caso o campo esteja vazio, exibe novamente todas as publicações.
         if (!texto) {
             carregarPublicacoes();
             return;
@@ -307,6 +328,7 @@ btnPesquisar.addEventListener(
             const publicacoes =
                 await resposta.json();
 
+            // Atualiza a interface com os resultados encontrados.
             renderizarPublicacoes(
                 publicacoes
             );
@@ -327,3 +349,21 @@ btnPesquisar.addEventListener(
 
 // Inicialização
 carregarPublicacoes();
+
+/*
+Arquivo responsável pela página principal da aplicação.
+
+Funcionalidades implementadas:
+
+- Verificação de autenticação.
+- Exibição do usuário logado.
+- Abertura e fechamento do menu lateral.
+- Logout.
+- Listagem de publicações.
+- Pesquisa por título.
+- Criação de publicações.
+- Navegação para a página de detalhes da publicação.
+
+A comunicação com o servidor é realizada por meio da API
+utilizando a função fetch().
+*/

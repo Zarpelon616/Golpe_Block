@@ -25,6 +25,7 @@ async function criarComentario(req, res) {
 
         }
 
+        // Verifica se os identificadores recebidos podem ser convertidos para números.
         if (
             !conteudo ||
             isNaN(Number(autorId)) ||
@@ -37,6 +38,7 @@ async function criarComentario(req, res) {
 
         }
 
+        // Solicita ao Model a criação do comentário.
         const comentario =
             await Comentario.criar(
                 conteudo,
@@ -44,6 +46,7 @@ async function criarComentario(req, res) {
                 Number(publicacaoId)
             );
 
+        // Retorna sucesso juntamente com o ID do comentário criado.
         res.status(201).json({
             mensagem: 'Comentário criado com sucesso.',
             id: comentario.id
@@ -51,6 +54,7 @@ async function criarComentario(req, res) {
 
     } catch (err) {
 
+        // Retorna erro interno caso ocorra alguma exceção durante o processamento.
         res.status(500).json({
             erro: err.message
         });
@@ -67,11 +71,13 @@ async function listarComentariosPorPublicacao(req, res) {
 
         const { publicacaoId } = req.params;
 
+        // Solicita ao Model a lista de comentários da publicação.
         const comentarios =
             await Comentario.listarPorPublicacao(
                 publicacaoId
             );
 
+        // Retorna os comentários encontrados.
         res.json(comentarios);
 
     } catch (err) {
@@ -92,8 +98,10 @@ async function excluirComentario(req, res) {
 
         const { id } = req.params;
 
+        // Solicita ao Model a exclusão do comentário.
         await Comentario.excluir(id);
 
+        // Retorna confirmação da exclusão.
         res.json({
             mensagem: 'Comentário excluído com sucesso.'
         });
@@ -117,17 +125,21 @@ module.exports = {
 };
 
 /*
-Controller responsável por receber requisições HTTP,
-validar os dados recebidos e retornar respostas ao cliente.
+Controller responsável por receber requisições HTTP relacionadas
+a comentários, validar os dados recebidos e encaminhar as operações
+para o Model correspondente.
 
 Funções implementadas:
 
 criarComentario()
-- Cria um novo comentário.
+- Cria um novo comentário associado a uma publicação.
 
 listarComentariosPorPublicacao()
-- Lista todos os comentários de uma publicação.
+- Retorna todos os comentários vinculados a uma publicação.
 
-Como o Prisma utiliza Promises,
-as funções utilizam async/await.
+excluirComentario()
+- Remove um comentário existente.
+
+As operações utilizam async/await devido ao uso do Prisma ORM,
+que trabalha com Promises para acesso ao banco de dados.
 */

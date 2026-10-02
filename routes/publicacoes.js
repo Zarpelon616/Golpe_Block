@@ -1,4 +1,4 @@
-// Importa o framework Express
+// Importa o framework Express utilizado para criação das rotas.
 const express = require('express');
 
 // Cria uma instância do Router responsável pelas rotas de publicações
@@ -9,45 +9,59 @@ const PublicacaoController =
     require('../controllers/PublicacaoController');
 
 // CRIAR PUBLICAÇÃO
+/*
+POST /publicacoes
 
-// POST /publicacoes
-// Recebe os dados enviados pelo cliente e solicita ao Controller a criação de uma nova publicação.
+Recebe os dados enviados pelo cliente
+e solicita ao Controller a criação de uma nova publicação.
+*/
 router.post(
     '/',
     PublicacaoController.criarPublicacao
 );
 
 // LISTAR PUBLICAÇÕES
+/*
+GET /publicacoes
 
-// GET /publicacoes
-// Retorna todas as publicações cadastradas no sistema.
+Retorna todas as publicações cadastradas no sistema.
+*/
 router.get(
     '/',
     PublicacaoController.listarPublicacoes
 );
 
 // BUSCAR PUBLICAÇÕES POR TÍTULO
-// Exemplo:
-// GET /publicacoes/busca?q=pix
+/*
+Exemplo:
+GET /publicacoes/busca?q=pix
+
+Realiza uma pesquisa de publicações
+utilizando um termo informado pelo usuário.
+*/
 router.get(
     '/busca',
     PublicacaoController.buscarPublicacoesPorTitulo
 );
 
 // BUSCAR PUBLICAÇÃO POR ID
-// GET /publicacoes/:id
-// Retorna uma publicação específica a partir do ID informado na URL.
+/*
+GET /publicacoes/:id
+
+Retorna uma publicação específica
+a partir do ID informado na URL.
+*/
 router.get(
     '/:id',//comentario abaixo
     PublicacaoController.buscarPublicacaoPorId
 );
 
 // EXCLUIR PUBLICAÇÃO
+/*
+DELETE /publicacoes/:id
 
-// DELETE /publicacoes/:id
-
-// Remove uma publicação a partir do ID informado.
-
+Remove uma publicação existente.
+*/
 router.delete(
 
     '/:id',
@@ -56,12 +70,31 @@ router.delete(
 
 );
 
-// Exporta o Router para utilização
-// no arquivo principal do servidor
+// Exporta o Router para utilização no servidor principal.
 module.exports = router;
 
-/* 
-Esse arquivo concentra as rotas relacionadas às publicações.
-Ele recebe as requisições HTTP e encaminha cada uma para o método adequado do Controller.
-:id é um parâmetro de rota.
+/*
+Arquivo responsável por registrar as rotas relacionadas
+à entidade Publicação.
+
+Rotas disponíveis:
+
+POST /publicacoes
+- Cria uma nova publicação.
+
+GET /publicacoes
+- Lista todas as publicações cadastradas.
+
+GET /publicacoes/busca?q=termo
+- Pesquisa publicações pelo título.
+
+GET /publicacoes/:id
+- Busca uma publicação específica.
+
+DELETE /publicacoes/:id
+- Exclui uma publicação.
+
+As rotas apenas encaminham as requisições para o
+PublicacaoController, responsável pelas validações
+e regras de negócio.
 */

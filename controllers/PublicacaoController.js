@@ -51,9 +51,11 @@ async function listarPublicacoes(req, res) {
 
     try {
 
+        // Solicita ao Model a lista completa de publicações.
         const publicacoes =
             await Publicacao.listarTodas();
 
+        // Retorna os dados encontrados em formato JSON.
         res.json(publicacoes);
 
     } catch (err) {
@@ -139,12 +141,17 @@ async function excluirPublicacao(req, res) {
 }
 
 // BUSCAR PUBLICAÇÕES POR TÍTULO
+/*
+Realiza uma pesquisa de publicações utilizando
+um termo informado pelo usuário através da query string.
+*/
 async function buscarPublicacoesPorTitulo(req, res) {
 
     try {
 
         const { q } = req.query;
 
+        // Verifica se o usuário informou um termo para pesquisa.
         if (!q) {
 
             return res.status(400).json({
@@ -153,6 +160,7 @@ async function buscarPublicacoesPorTitulo(req, res) {
 
         }
 
+        // Solicita ao Model a busca das publicações que contenham o termo informado.
         const publicacoes =
             await Publicacao.buscarPorTitulo(q);
 
@@ -179,20 +187,27 @@ module.exports = {
 };
 
 /*
-Controller responsável por receber requisições HTTP,
-validar os dados recebidos e retornar respostas ao cliente.
+Controller responsável por receber requisições HTTP relacionadas
+às publicações, validar os dados recebidos e encaminhar as operações
+para o Model correspondente.
 
-Nesta versão o acesso ao banco é realizado através
-do Prisma ORM.
+Funções implementadas:
 
-Como o Prisma trabalha com Promises,
-as funções utilizam async/await.
+criarPublicacao()
+- Cria uma nova publicação.
 
-try/catch:
-- try executa o código principal.
-- catch captura erros e impede que o servidor seja encerrado.
+listarPublicacoes()
+- Retorna todas as publicações cadastradas.
 
-await:
-- Aguarda a conclusão de operações assíncronas.
-- Facilita a leitura em comparação ao uso de callbacks.
+buscarPublicacaoPorId()
+- Busca uma publicação específica através do ID informado.
+
+buscarPublicacoesPorTitulo()
+- Pesquisa publicações pelo título utilizando um termo informado pelo usuário.
+
+excluirPublicacao()
+- Remove uma publicação existente.
+
+As operações utilizam async/await devido ao uso do Prisma ORM,
+que trabalha com Promises para acesso ao banco de dados.
 */

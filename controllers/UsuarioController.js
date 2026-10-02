@@ -1,8 +1,12 @@
-// Importa o Model responsável pelas operações relacionadas aos usuários
+// Importa o Model responsável pelo acesso e manipulação dos dados de usuários.
 const Usuario = require('../models/usuario');
 
 // CRIAR USUÁRIO
-// Recebe os dados enviados pelo cliente e solicita ao Model a criação do usuário.
+/*
+Recebe os dados enviados pelo cliente,
+realiza as validações necessárias e solicita
+ao Model a criação de um novo usuário.
+*/
 async function criarUsuario(req, res) {
 
     try {
@@ -18,11 +22,13 @@ async function criarUsuario(req, res) {
 
         }
 
+        // Solicita ao Model a criação do usuário no banco de dados.
         const usuario = await Usuario.criar(
             email,
             senhaHash
         );
 
+        // Retorna sucesso juntamente com o ID gerado para o usuário.
         res.status(201).json({
             mensagem: 'Usuário criado com sucesso.',
             id: usuario.id
@@ -39,14 +45,19 @@ async function criarUsuario(req, res) {
 }
 
 // LISTAR USUÁRIOS
-// Retorna todos os usuários cadastrados.
+/*
+Busca e retorna todos os usuários
+cadastrados no banco de dados.
+*/
 async function listarUsuarios(req, res) {
 
     try {
 
+        // Solicita ao Model a lista completa de usuários.
         const usuarios =
             await Usuario.listarTodos();
 
+        // Retorna os dados encontrados em formato JSON.
         res.json(usuarios);
 
     } catch (err) {
@@ -60,16 +71,22 @@ async function listarUsuarios(req, res) {
 }
 
 // BUSCAR USUÁRIO POR ID
-// Retorna um usuário específico através do ID informado.
+/*
+Busca um usuário específico utilizando
+o identificador informado na URL.
+*/
 async function buscarUsuarioPorId(req, res) {
 
     try {
 
+        // Obtém o ID informado na rota.
         const { id } = req.params;
 
+        // Solicita ao Model a busca do usuário.
         const usuario =
             await Usuario.buscarPorId(id);
 
+        // Caso o usuário não exista, retorna erro 404.
         if (!usuario) {
 
             return res.status(404).json({
@@ -78,6 +95,7 @@ async function buscarUsuarioPorId(req, res) {
 
         }
 
+        // Retorna os dados do usuário encontrado.
         res.json(usuario);
 
     } catch (err) {
@@ -90,36 +108,42 @@ async function buscarUsuarioPorId(req, res) {
 
 }
 
+// LOGIN
+/*
+Realiza a autenticação de um usuário a partir
+do e-mail e senha informados pelo cliente.
+*/
 async function login(req, res) {
     try {
-        // Passo 1 — Receber os dados
+
+        // Recebe os dados enviados pelo formulário de login.
         const { email, senhaHash } = req.body;
 
-        // Validação dos campos obrigatórios
+        // Verifica se os campos obrigatórios foram preenchidos.
         if (!email || !senhaHash) {
             return res.status(400).json({
                 erro: 'Email e senha obrigatórios.'
             });
         }
 
-        // Passo 2 — Procurar o usuário
+        // Procura no banco de dados um usuário com o e-mail informado.
         const usuario = await Usuario.buscarPorEmail(email);
 
-        // Passo 3 — Verificar se encontrou
+        // Caso o usuário não exista, retorna erro de autenticação.
         if (!usuario) {
             return res.status(401).json({
                 erro: 'Email ou senha inválidos.'
             });
         }
 
-        // Passo 4 — Comparar as senhas
+        // Compara a senha recebida com a senha armazenada.
         if (senhaHash !== usuario.senhaHash) {
             return res.status(401).json({
                 erro: 'Email ou senha inválidos.'
             });
         }
 
-        // Login realizado com sucesso
+        // Retorna sucesso juntamente com o ID do usuário autenticado.
         res.status(200).json({
             mensagem: 'Login realizado com sucesso.',
             id: usuario.id
@@ -142,10 +166,24 @@ module.exports = {
 };
 
 /*
-Controller responsável por receber requisições HTTP relacionadas aos usuários.
+Controller responsável por receber requisições HTTP relacionadas
+a usuários, validar os dados recebidos e encaminhar as operações
+para o Model correspondente.
 
-Ele realiza validações básicas, chama o Model para acessar o banco de dados
-e retorna respostas para o cliente.
+Funções implementadas:
 
-Utiliza async/await porque o Prisma trabalha com operações assíncronas.
+criarUsuario()
+- Cria um novo usuário.
+
+listarUsuarios()
+- Retorna todos os usuários cadastrados.
+
+buscarUsuarioPorId()
+- Busca um usuário específico através do ID informado.
+
+login()
+- Realiza a autenticação do usuário utilizando e-mail e senha.
+
+As operações utilizam async/await devido ao uso do Prisma ORM,
+que trabalha com Promises para acesso ao banco de dados.
 */
