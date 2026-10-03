@@ -486,3 +486,10 @@ https://golpe-block.onrender.com
 * SQLite
 
 O deploy é realizado automaticamente a partir do repositório GitHub através da integração contínua disponibilizada pela plataforma Render.
+
+
+### Link do Video apresentando o projeto
+
+https://youtu.be/XavBVHlfn7M
+
+O video está como não listado no youtube acessivel apenas pelo link
